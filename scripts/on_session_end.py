@@ -87,6 +87,8 @@ def consolidate(profile: dict, session_id: str | None = None) -> list[dict]:
 
 
 def main():
+    if lib.disabled():
+        return
     try:
         payload = json.load(sys.stdin)
     except json.JSONDecodeError:

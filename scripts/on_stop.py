@@ -113,6 +113,8 @@ def main():
         finally:
             path.unlink(missing_ok=True)
         return
+    if lib.disabled():
+        return
     try:
         payload = json.load(sys.stdin)
     except json.JSONDecodeError:

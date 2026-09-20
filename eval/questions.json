@@ -1,0 +1,16 @@
+{
+ "persona": "mba",
+ "note": "Questions the MBA persona would plausibly ask, spread across the map. The last two are controls in areas the persona knows well; the profile should not make those answers simpler.",
+ "questions": [
+  {"id": "phys-top", "area": "physics (unknown)", "q": "Why does a spinning top stay upright instead of falling over?"},
+  {"id": "phys-sky", "area": "physics (unknown)", "q": "Why is the sky blue but sunsets are red?"},
+  {"id": "math-deriv", "area": "calculus (unknown)", "q": "My analyst said the derivative of our cost function is zero at the optimum. What does that actually mean?"},
+  {"id": "math-linind", "area": "linear algebra (unknown)", "q": "A data scientist told me two of our KPIs are 'linearly dependent' so one is redundant. What does linearly dependent mean?"},
+  {"id": "logic-contra", "area": "logic (unknown)", "q": "What is a proof by contradiction, and why is it considered valid?"},
+  {"id": "cs-bigo", "area": "algorithms (unknown)", "q": "Our engineers say switching to an O(n log n) algorithm from an O(n^2) one will fix the slowdown. What do those notations mean and why would it help?"},
+  {"id": "lit-narrator", "area": "literature (exposed)", "q": "What is an unreliable narrator, and why would an author choose to use one?"},
+  {"id": "hist-bretton", "area": "modern history (exposed) + economics (known)", "q": "Why did the Bretton Woods system collapse in the early 1970s?"},
+  {"id": "econ-monopoly", "area": "microeconomics (known, control)", "q": "Why does a monopolist produce less than a competitive market would, and who loses from that?"},
+  {"id": "econ-policy", "area": "macroeconomics (known, control)", "q": "When inflation is high, what is the difference between using fiscal policy and monetary policy to fight it?"}
+ ]
+}

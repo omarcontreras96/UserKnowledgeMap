@@ -117,6 +117,8 @@ def main():
     ap.add_argument("--profile", type=Path, default=None)
     ap.add_argument("--max", type=int, default=MAX_PER_LIST)
     args = ap.parse_args()
+    if lib.disabled():
+        return
     profile = lib.load_profile(args.profile)
     if not profile.get("nodes"):
         return  # no profile yet: print nothing, add nothing to context

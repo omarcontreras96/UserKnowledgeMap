@@ -26,6 +26,11 @@ STRENGTH = {"unknown": 0, "inferred": 0.5, "asked": 0.75, "exposed": 1, "used": 
 USER_STATED = "user-stated"
 
 
+def disabled() -> bool:
+    """UKM_DISABLED=1 makes every hook a no-op (used by the eval, and handy for a quiet session)."""
+    return os.environ.get("UKM_DISABLED", "") not in ("", "0", "false")
+
+
 def knowledge_home() -> Path:
     p = Path(os.environ.get("KNOWLEDGE_HOME", Path.home() / ".knowledge")).expanduser()
     p.mkdir(parents=True, exist_ok=True)

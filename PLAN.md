@@ -205,6 +205,23 @@ Judge with Opus 5, given the persona profile:
 Also record answer length (the tree should not just make answers longer).
 Output `eval/results.md` as a table, means per condition. Put it on the final slide.
 **Done when:** the table exists. If C does not beat B, revise the rules text in step 3 and rerun.
+**Done 2026-09-20** (`eval/results.md`; generator = Claude via headless `claude -p` with the condition
+appended to the system prompt, judge = gpt-5, n = 10):
+
+| condition | unexplained deps | follow-up questions | new concepts | words |
+|---|---|---|---|---|
+| A none | 4.30 | 4.10 | 6.7 | 380 |
+| B bio  | 1.40 | 2.70 | 7.0 | 430 |
+| C tree | 0.90 | 2.10 | 6.7 | 421 |
+
+On the six questions in areas the persona does not know: unexplained 5.50 -> 1.50 -> 0.83,
+follow-ups 5.50 -> 3.00 -> 2.50. Controls in known areas stayed at 0 unexplained under all conditions
+(the profile does not dumb down strong areas). Answers under C are ~10% longer than A, not 2x.
+Honest reading: the one-line bio captures most of the single-answer gain (4.3 -> 1.4); the tree adds
+a smaller, consistent improvement (C <= B on 8 of 10 questions). With n = 10 the B-vs-C gap is within
+noise. The "at most two new concepts" budget is not obeyed (C defines ~6 per answer by the judge's
+count, which includes analogies and sub-points). The product claim therefore rests on what the bio
+cannot do: learn from the conversation, persist across sessions and agents, and get more precise.
 
 ### 9. Demo script (20 min)
 1. `scripts/reset_demo.sh`, open viz, open `claude`.

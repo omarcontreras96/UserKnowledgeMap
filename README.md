@@ -35,4 +35,5 @@ scripts/reset_demo.sh                       # copies the persona seed to $KNOWLE
 - [x] UserPromptSubmit hook: "what's X" -> asked, "I already know X" -> used, correct use -> used; delta printed into context
 - [x] Stop hook: concepts the agent explained -> exposed (detached worker, one fast-model call)
 - [x] SessionEnd consolidation: parent exposed after >= 3 explained leaves, parent inferred from a used leaf, AL-CPL prerequisites inferred
-- [ ] Tree visualization, eval, plugin packaging
+- [x] Eval: 10 questions x {none, bio, tree}; Claude answers, gpt-5 judges. Unexplained dependencies per answer 4.3 -> 1.4 -> 0.9; follow-up questions 4.1 -> 2.7 -> 2.1. See `eval/results.md`.
+- [ ] Tree visualization, demo script, plugin packaging

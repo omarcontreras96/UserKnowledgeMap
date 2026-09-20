@@ -181,6 +181,8 @@ def resolve_or_create(term: str, profile: dict, session: dict):
 
 
 def main():
+    if lib.disabled():
+        return
     try:
         payload = json.load(sys.stdin)
     except json.JSONDecodeError:
