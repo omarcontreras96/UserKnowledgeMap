@@ -50,12 +50,51 @@ MODEL_GEN = os.environ.get("UKM_MODEL_GEN", "gpt-5")            # eval: answer g
 MODEL_JUDGE = os.environ.get("UKM_MODEL_JUDGE", "gpt-5")        # eval: judge
 
 
-def openai_client():
+def openai_client(timeout: float = 20.0):
     """Lazy OpenAI client; raises a clear error if the key is missing."""
     if not os.environ.get("OPENAI_API_KEY"):
         raise RuntimeError("OPENAI_API_KEY not set; put it in ~/.knowledge/.env (see README)")
     from openai import OpenAI
-    return OpenAI()
+    return OpenAI(timeout=timeout, max_retries=0)
+
+
+def chat_json(system: str, user: str, *, model: str | None = None, timeout: float = 8.0,
+              max_tokens: int = 600) -> dict | None:
+    """One fast JSON-mode call. Returns the parsed object, or None on any failure (hooks must not break)."""
+    try:
+        c = openai_client(timeout=timeout)
+        r = c.chat.completions.create(
+            model=model or MODEL_FAST, reasoning_effort="minimal",
+            response_format={"type": "json_object"},
+            messages=[{"role": "system", "content": system}, {"role": "user", "content": user}],
+            max_completion_tokens=max_tokens,
+        )
+        return json.loads(r.choices[0].message.content or "{}")
+    except Exception as e:  # noqa: BLE001
+        debug(f"chat_json failed: {type(e).__name__}: {e}")
+        return None
+
+
+def debug(msg: str) -> None:
+    """Append to $KNOWLEDGE_HOME/debug.log (hooks cannot print diagnostics to the user)."""
+    try:
+        with (knowledge_home() / "debug.log").open("a", encoding="utf-8") as f:
+            f.write(f"{now()} {msg}\n")
+    except OSError:
+        pass
+
+
+def session_state_path(session_id: str) -> Path:
+    return knowledge_home() / f"session-{session_id}.json"
+
+
+def load_session_state(session_id: str) -> dict:
+    p = session_state_path(session_id)
+    return json.loads(p.read_text(encoding="utf-8")) if p.exists() else {"last_parents": [], "turns": 0}
+
+
+def save_session_state(session_id: str, state: dict) -> None:
+    session_state_path(session_id).write_text(json.dumps(state, ensure_ascii=False), encoding="utf-8")
 
 
 def profile_path() -> Path:
@@ -160,7 +199,7 @@ def find_by_name(name: str, profile: dict | None = None) -> str | None:
             return nid
     if profile:
         for nid, n in profile["nodes"].items():
-            if n.get("name", "").lower() == key:
+            if n.get("name", "").lower() == key or key in [a.lower() for a in n.get("aliases", [])]:
                 return nid
     # loose match: slug equality on the last path segment
     s = slug(name)
@@ -206,7 +245,14 @@ def transition(profile: dict, node_id: str, new_state: str, evidence: str, *,
 
     if cur:
         if cur_user_stated and not user_stated:
-            return None                                   # user statements are sticky
+            # User statements are sticky against contradiction by weak automatic evidence,
+            # but not against progress: "I don't know X" -> explained -> exposed is fine.
+            if new_state == "inferred":
+                return None
+            if old_state == "used" and new_state in ("asked", "exposed", "unknown"):
+                return None
+            if old_state == "unknown" and new_state == "unknown":
+                return None
         if new_state == "inferred" and old_state not in (None, "inferred"):
             return None                                   # inference never overrides evidence
         if new_state == "exposed" and old_state == "used":

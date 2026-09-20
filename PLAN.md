@@ -147,6 +147,10 @@ Explain it from scratch.` Append diff to `log.jsonl`.
 **Done when:** typing "wait, what's torque?" mid-session produces a visibly simpler re-explanation and
 a new line in `log.jsonl`; typing "I already know what a vector is" turns `vector` green without
 touching any file.
+**Done 2026-09-20:** regex detection for asked / user-stated known / user-stated unknown; `used`
+detection over tracked names with a fast-model "used correctly" check; unresolvable terms placed by a
+fast-model call (`is_concept` gate rejects comparisons like "the difference between micro and macro");
+canonical-name dedupe with aliases. Live headless run logged `physics/mechanics/torque -> asked`.
 
 ### 5. Stop hook: detect exposed (45 min)
 `scripts/on_stop.py` reads stdin JSON, uses `last_assistant_message` (do not read the transcript;

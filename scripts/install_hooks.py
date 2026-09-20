@@ -22,7 +22,7 @@ MARK = "UserKnowledgeMap"
 # event -> (script, timeout seconds). Only the scripts that exist are installed.
 HOOKS = {
     "SessionStart": ("render_context.py", 10),
-    "UserPromptSubmit": ("on_prompt.py", 10),
+    "UserPromptSubmit": ("on_prompt.py", 15),
     "Stop": ("on_stop.py", 5),
     "SessionEnd": ("on_session_end.py", 30),
 }

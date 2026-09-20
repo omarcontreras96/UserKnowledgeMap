@@ -32,6 +32,6 @@ scripts/reset_demo.sh                       # copies the persona seed to $KNOWLE
 
 - [x] Skeleton, persona seed, profile library
 - [x] SessionStart hook: profile block changes how Claude explains (see `eval/samples/`)
-- [ ] UserPromptSubmit hook (asked / used / user-stated corrections)
+- [x] UserPromptSubmit hook: "what's X" -> asked, "I already know X" -> used, correct use -> used; delta printed into context
 - [ ] Stop hook (exposed), SessionEnd consolidation
 - [ ] Tree visualization, eval, plugin packaging
