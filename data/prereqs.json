@@ -1,0 +1,1338 @@
+{
+ "source": "AL-CPL (Liang et al. 2018), CC BY-NC-SA 4.0, transitive reduction",
+ "prereqs": {
+  "gravitational acceleration": [
+   "Acceleration",
+   "Gravity",
+   "Mass"
+  ],
+  "newton's laws of motion": [
+   "Force",
+   "Motion (physics)"
+  ],
+  "electrostatics": [
+   "Electric potential energy"
+  ],
+  "electrical resistance and conductance": [
+   "Electric current",
+   "Ohm's law"
+  ],
+  "le sage's theory of gravitation": [
+   "Gravity",
+   "Mass",
+   "Speed"
+  ],
+  "projectile motion": [
+   "Acceleration",
+   "Gravity"
+  ],
+  "intensity (physics)": [
+   "Power (physics)"
+  ],
+  "dielectric": [
+   "Electric field",
+   "Insulator (electricity)"
+  ],
+  "normal force": [
+   "Contact force"
+  ],
+  "gravity of earth": [
+   "Acceleration",
+   "Mass"
+  ],
+  "acceleration": [
+   "Displacement (vector)",
+   "Force",
+   "Speed",
+   "Velocity"
+  ],
+  "work (physics)": [
+   "Displacement (vector)",
+   "Energy",
+   "Force"
+  ],
+  "shock wave": [
+   "Energy",
+   "Speed",
+   "Wave"
+  ],
+  "electric potential energy": [
+   "Electric field",
+   "Potential energy"
+  ],
+  "emission spectrum": [
+   "Electromagnetic radiation",
+   "Energy level",
+   "Frequency",
+   "Wavelength"
+  ],
+  "magnetic field": [
+   "Electric current",
+   "Field (physics)",
+   "Force",
+   "Magnet"
+  ],
+  "equations of motion": [
+   "Acceleration"
+  ],
+  "dispersion (optics)": [
+   "Color",
+   "Light",
+   "Phase velocity",
+   "Wave"
+  ],
+  "hardness": [
+   "Strength of materials"
+  ],
+  "speed": [
+   "Distance",
+   "Motion (physics)"
+  ],
+  "non-inertial reference frame": [
+   "Frame of reference"
+  ],
+  "gravitational constant": [
+   "Newton's law of universal gravitation"
+  ],
+  "snell's law": [
+   "Ray (optics)",
+   "Refractive index",
+   "Wavelength"
+  ],
+  "sound intensity": [
+   "Intensity (physics)",
+   "Sound"
+  ],
+  "electromagnetic spectrum": [
+   "Absorption spectroscopy",
+   "Electromagnetic radiation",
+   "Light"
+  ],
+  "total internal reflection": [
+   "Angle of incidence",
+   "Reflection (physics)",
+   "Refraction"
+  ],
+  "inertial frame of reference": [
+   "Speed"
+  ],
+  "electric potential": [
+   "Electric potential energy"
+  ],
+  "refractive index": [
+   "Angle of incidence",
+   "Refraction",
+   "Speed"
+  ],
+  "doppler effect": [
+   "Frequency",
+   "Relative velocity",
+   "Wavelength"
+  ],
+  "electromotive force": [
+   "Electric field",
+   "Magnetic field",
+   "Voltage"
+  ],
+  "electric field": [
+   "Coulomb's law",
+   "Energy",
+   "Field (physics)"
+  ],
+  "insulator (electricity)": [
+   "Electric current"
+  ],
+  "motion graphs and derivatives": [
+   "Displacement (vector)",
+   "Velocity"
+  ],
+  "energy level": [
+   "Energy"
+  ],
+  "elastic collision": [
+   "Collision",
+   "Kinetic energy",
+   "Relative velocity"
+  ],
+  "strength of materials": [
+   "Elasticity (physics)",
+   "Fracture",
+   "Plasticity (physics)"
+  ],
+  "newton's law of universal gravitation": [
+   "Distance",
+   "Gravity"
+  ],
+  "photoelectric effect": [
+   "Electron",
+   "Energy",
+   "Light"
+  ],
+  "free fall": [
+   "Gravitational acceleration"
+  ],
+  "mechanical energy": [
+   "Kinetic energy",
+   "Potential energy",
+   "Velocity"
+  ],
+  "mirror image": [
+   "Plane mirror",
+   "Reflection (physics)"
+  ],
+  "tension (physics)": [
+   "Force"
+  ],
+  "electromagnetic radiation": [
+   "Electric field",
+   "Electron",
+   "Magnetic field"
+  ],
+  "specular reflection": [
+   "Angle of incidence",
+   "Ray (optics)",
+   "Reflection (physics)"
+  ],
+  "gravitational field": [
+   "Field (physics)",
+   "Mass",
+   "Newton's law of universal gravitation"
+  ],
+  "collision": [
+   "Force"
+  ],
+  "inelastic collision": [
+   "Collision",
+   "Kinetic energy"
+  ],
+  "power (physics)": [
+   "Energy",
+   "Force"
+  ],
+  "scalar multiplication": [
+   "Multiplication",
+   "Scalar (mathematics)"
+  ],
+  "standing wave": [
+   "Interference (wave propagation)"
+  ],
+  "gravity": [
+   "Force"
+  ],
+  "sonic boom": [
+   "Sound",
+   "Wave"
+  ],
+  "friction": [
+   "Contact force"
+  ],
+  "laser": [
+   "Light"
+  ],
+  "diffraction": [
+   "Wave"
+  ],
+  "scattering": [
+   "Wavelength"
+  ],
+  "interference (wave propagation)": [
+   "Amplitude",
+   "Frequency",
+   "Wavelength"
+  ],
+  "kinetic energy": [
+   "Energy",
+   "Mass"
+  ],
+  "relative velocity": [
+   "Speed",
+   "Velocity"
+  ],
+  "absorption spectroscopy": [
+   "Energy",
+   "Frequency",
+   "Wavelength"
+  ],
+  "hooke's law": [
+   "Elasticity (physics)",
+   "Length"
+  ],
+  "potential energy": [
+   "Work (physics)"
+  ],
+  "virtual image": [
+   "Ray (optics)"
+  ],
+  "crest (physics)": [
+   "Wave"
+  ],
+  "displacement (vector)": [
+   "Distance",
+   "Motion (physics)",
+   "Position (vector)"
+  ],
+  "huygens–fresnel principle": [
+   "Amplitude"
+  ],
+  "contact force": [
+   "Force"
+  ],
+  "elasticity (physics)": [
+   "Deformation (engineering)"
+  ],
+  "capacitance": [
+   "Electric charge",
+   "Voltage"
+  ],
+  "ohm's law": [
+   "Voltage"
+  ],
+  "refracting telescope": [
+   "Refraction",
+   "Telescope"
+  ],
+  "position (vector)": [
+   "Euclidean vector"
+  ],
+  "rarefaction": [
+   "Wave"
+  ],
+  "fatigue (material)": [
+   "Elasticity (physics)"
+  ],
+  "lever": [
+   "Force"
+  ],
+  "series and parallel circuits": [
+   "Electrical resistance and conductance"
+  ],
+  "creep (deformation)": [
+   "Deformation (engineering)"
+  ],
+  "transmission medium": [
+   "Wave"
+  ],
+  "electrical conductor": [
+   "Electric current"
+  ],
+  "reflection (physics)": [
+   "Light",
+   "Wave"
+  ],
+  "velocity": [
+   "Distance",
+   "Motion (physics)"
+  ],
+  "geometrical optics": [
+   "Ray (optics)"
+  ],
+  "transverse wave": [
+   "Wave"
+  ],
+  "torque": [
+   "Lever"
+  ],
+  "pigment": [
+   "Color"
+  ],
+  "refraction": [
+   "Wave"
+  ],
+  "plasticity (physics)": [
+   "Deformation (engineering)"
+  ],
+  "optical microscope": [
+   "Light"
+  ],
+  "frame of reference": [
+   "Motion (physics)"
+  ],
+  "deformation (engineering)": [
+   "Force"
+  ],
+  "magnetism": [
+   "Force",
+   "Magnet"
+  ],
+  "wavelength": [
+   "Wave"
+  ],
+  "ray (optics)": [
+   "Light"
+  ],
+  "voltmeter": [
+   "Voltage"
+  ],
+  "hertz": [
+   "Frequency"
+  ],
+  "stiffness": [
+   "Force"
+  ],
+  "congruence (geometry)": [
+   "Polygon"
+  ],
+  "bisection": [
+   "Midpoint",
+   "Perpendicular"
+  ],
+  "cartesian coordinate system": [
+   "Coordinate system",
+   "Distance",
+   "Perpendicular"
+  ],
+  "arc (geometry)": [
+   "Circle"
+  ],
+  "edge (geometry)": [
+   "Line segment",
+   "Vertex (geometry)"
+  ],
+  "diameter": [
+   "Chord (geometry)",
+   "Radius"
+  ],
+  "square": [
+   "Rectangle"
+  ],
+  "polygon": [
+   "Angle",
+   "Edge (geometry)"
+  ],
+  "quadrilateral": [
+   "Polygon"
+  ],
+  "tangent": [
+   "Trigonometric functions"
+  ],
+  "grade (slope)": [
+   "Angle",
+   "Slope"
+  ],
+  "isosceles triangle": [
+   "Triangle"
+  ],
+  "convex polygon": [
+   "Polygon"
+  ],
+  "rhombus": [
+   "Parallelogram"
+  ],
+  "inverse trigonometric functions": [
+   "Inverse function",
+   "Sine"
+  ],
+  "reflection symmetry": [
+   "Reflection (mathematics)"
+  ],
+  "parallel (geometry)": [
+   "Line (geometry)"
+  ],
+  "special right triangles": [
+   "Right triangle"
+  ],
+  "pythagorean triple": [
+   "Pythagorean theorem"
+  ],
+  "coordinate system": [
+   "Number",
+   "Two-dimensional space"
+  ],
+  "equilateral triangle": [
+   "Triangle"
+  ],
+  "kite (geometry)": [
+   "Quadrilateral"
+  ],
+  "radius": [
+   "Circle",
+   "Line segment"
+  ],
+  "angle bisector theorem": [
+   "Bisection",
+   "Triangle"
+  ],
+  "two-dimensional space": [
+   "Plane (geometry)",
+   "Point (geometry)"
+  ],
+  "heptagon": [
+   "Polygon"
+  ],
+  "exterior angle theorem": [
+   "Internal and external angle",
+   "Triangle"
+  ],
+  "hexagon": [
+   "Polygon"
+  ],
+  "dodecagon": [
+   "Polygon"
+  ],
+  "right angle": [
+   "Angle"
+  ],
+  "right triangle": [
+   "Right angle",
+   "Triangle"
+  ],
+  "scaling (geometry)": [
+   "Scale factor"
+  ],
+  "hendecagon": [
+   "Polygon"
+  ],
+  "polyhedron": [
+   "Face (geometry)",
+   "Polygon"
+  ],
+  "sine": [
+   "Trigonometric functions"
+  ],
+  "star polygon": [
+   "Polygon"
+  ],
+  "pentagon": [
+   "Polygon"
+  ],
+  "internal and external angle": [
+   "Polygon"
+  ],
+  "parallelogram": [
+   "Parallel (geometry)",
+   "Quadrilateral"
+  ],
+  "decagon": [
+   "Polygon"
+  ],
+  "perpendicular": [
+   "Angle"
+  ],
+  "rectangle": [
+   "Parallelogram",
+   "Right angle"
+  ],
+  "trigonometric functions": [
+   "Triangle",
+   "Trigonometry"
+  ],
+  "rotational symmetry": [
+   "Rotation (mathematics)"
+  ],
+  "translation (geometry)": [
+   "Symmetry"
+  ],
+  "pyramid (geometry)": [
+   "Polygon"
+  ],
+  "prism (geometry)": [
+   "Parallel (geometry)",
+   "Polyhedron"
+  ],
+  "collinearity": [
+   "Line (geometry)"
+  ],
+  "acute and obtuse triangles": [
+   "Triangle"
+  ],
+  "arc length": [
+   "Arc (geometry)",
+   "Distance"
+  ],
+  "chord (geometry)": [
+   "Circle",
+   "Line segment"
+  ],
+  "diagonal": [
+   "Polygon"
+  ],
+  "pythagorean theorem": [
+   "Right triangle"
+  ],
+  "self-similarity": [
+   "Similarity (geometry)",
+   "Symmetry"
+  ],
+  "altitude (triangle)": [
+   "Distance",
+   "Perpendicular",
+   "Triangle"
+  ],
+  "rigid transformation": [
+   "Reflection (mathematics)",
+   "Translation (geometry)"
+  ],
+  "midpoint": [
+   "Line segment"
+  ],
+  "trapezoid": [
+   "Angle"
+  ],
+  "skew lines": [
+   "Parallel (geometry)",
+   "Plane (geometry)"
+  ],
+  "nonagon": [
+   "Polygon"
+  ],
+  "reflection (mathematics)": [
+   "Rotation (mathematics)"
+  ],
+  "octagon": [
+   "Polygon"
+  ],
+  "transversal (geometry)": [
+   "Angle",
+   "Plane (geometry)"
+  ],
+  "cylinder (geometry)": [
+   "Circle"
+  ],
+  "secant line": [
+   "Curve"
+  ],
+  "line segment": [
+   "Line (geometry)"
+  ],
+  "triangle": [
+   "Polygon"
+  ],
+  "sphere": [
+   "Circle"
+  ],
+  "circumference": [
+   "Circle"
+  ],
+  "triangle inequality": [
+   "Triangle"
+  ],
+  "rotation (mathematics)": [
+   "Angle",
+   "Symmetry"
+  ],
+  "cross section (geometry)": [
+   "Plane (geometry)"
+  ],
+  "line (geometry)": [
+   "Point (geometry)"
+  ],
+  "vertex (geometry)": [
+   "Point (geometry)"
+  ],
+  "tessellation": [
+   "Plane (geometry)"
+  ],
+  "cone": [
+   "Circle"
+  ],
+  "slope": [
+   "Line (geometry)"
+  ],
+  "angle": [
+   "Line (geometry)"
+  ],
+  "differential equation": [
+   "Equation"
+  ],
+  "exponentiation": [
+   "Multiplication"
+  ],
+  "matrix multiplication": [
+   "Matrix (mathematics)",
+   "Multiplication"
+  ],
+  "asymptote": [
+   "Curve"
+  ],
+  "descartes' rule of signs": [
+   "Polynomial"
+  ],
+  "binomial coefficient": [
+   "Binomial theorem"
+  ],
+  "partial fraction decomposition": [
+   "Division (mathematics)",
+   "Factorization",
+   "Polynomial"
+  ],
+  "binomial theorem": [
+   "Binomial"
+  ],
+  "rational root theorem": [
+   "Equation solving",
+   "Polynomial",
+   "Rational number"
+  ],
+  "algebraic equation": [
+   "Equation"
+  ],
+  "monotonic function": [
+   "Function (mathematics)"
+  ],
+  "polynomial long division": [
+   "Degree of a polynomial",
+   "Division (mathematics)"
+  ],
+  "algebraic expression": [
+   "Exponentiation",
+   "Polynomial",
+   "Square root"
+  ],
+  "exponential growth": [
+   "Exponential function"
+  ],
+  "linear inequality": [
+   "Inequality (mathematics)",
+   "Linear function"
+  ],
+  "minor (linear algebra)": [
+   "Determinant"
+  ],
+  "factorization": [
+   "Multiplication"
+  ],
+  "homogeneous polynomial": [
+   "Polynomial"
+  ],
+  "eccentricity (mathematics)": [
+   "Conic section"
+  ],
+  "imaginary number": [
+   "Complex number"
+  ],
+  "dependent and independent variables": [
+   "Function (mathematics)"
+  ],
+  "polynomial": [
+   "Addition",
+   "Integer",
+   "Multiplication"
+  ],
+  "synthetic division": [
+   "Polynomial long division"
+  ],
+  "algebra": [
+   "Number"
+  ],
+  "empty sum": [
+   "Summation"
+  ],
+  "multiplicative inverse": [
+   "Division (mathematics)",
+   "Multiplication"
+  ],
+  "function composition": [
+   "Function (mathematics)"
+  ],
+  "linear equation": [
+   "Equation",
+   "Line (geometry)"
+  ],
+  "natural logarithm": [
+   "E (mathematical constant)",
+   "Logarithm"
+  ],
+  "line–line intersection": [
+   "Point (geometry)"
+  ],
+  "inequality (mathematics)": [
+   "Equation"
+  ],
+  "unit circle": [
+   "Circle"
+  ],
+  "binary number": [
+   "Number"
+  ],
+  "limit of a function": [
+   "Function (mathematics)",
+   "Limit (mathematics)"
+  ],
+  "law of sines": [
+   "Sine"
+  ],
+  "common logarithm": [
+   "Logarithm"
+  ],
+  "conic section": [
+   "Cone"
+  ],
+  "identity matrix": [
+   "Main diagonal",
+   "Square matrix"
+  ],
+  "edge": [
+   "Line segment"
+  ],
+  "solution of triangles": [
+   "Triangle",
+   "Trigonometry"
+  ],
+  "negative number": [
+   "Number"
+  ],
+  "scalar (mathematics)": [
+   "Vector space"
+  ],
+  "analytic geometry": [
+   "Cartesian coordinate system",
+   "Equation"
+  ],
+  "natural number": [
+   "Number"
+  ],
+  "pythagorean trigonometric identity": [
+   "Pythagorean theorem",
+   "Trigonometric functions"
+  ],
+  "system of linear equations": [
+   "Linear equation"
+  ],
+  "quadratic function": [
+   "Function (mathematics)"
+  ],
+  "fundamental theorem of algebra": [
+   "Complex number",
+   "Equation",
+   "Polynomial"
+  ],
+  "matrix ring": [
+   "Addition",
+   "Matrix (mathematics)"
+  ],
+  "division by zero": [
+   "Division (mathematics)"
+  ],
+  "transformation (function)": [
+   "Function (mathematics)"
+  ],
+  "algebraic operation": [
+   "Number"
+  ],
+  "extended real number line": [
+   "Real number"
+  ],
+  "mathematical induction": [
+   "Mathematical proof"
+  ],
+  "simultaneous equations": [
+   "Equation"
+  ],
+  "determinant": [
+   "Square matrix"
+  ],
+  "trigonometric tables": [
+   "Trigonometry"
+  ],
+  "cross product": [
+   "Product (mathematics)"
+  ],
+  "binary logarithm": [
+   "Function (mathematics)",
+   "Logarithm"
+  ],
+  "product (mathematics)": [
+   "Multiplication"
+  ],
+  "vertical line test": [
+   "Graph of a function",
+   "Line (geometry)"
+  ],
+  "square matrix": [
+   "Matrix (mathematics)"
+  ],
+  "quadratic formula": [
+   "Polynomial",
+   "Quadratic equation"
+  ],
+  "image (mathematics)": [
+   "Function (mathematics)"
+  ],
+  "euclidean vector": [
+   "Vector (mathematics and physics)"
+  ],
+  "basis (linear algebra)": [
+   "Number"
+  ],
+  "equation solving": [
+   "Equation"
+  ],
+  "degree of a polynomial": [
+   "Polynomial"
+  ],
+  "even and odd functions": [
+   "Function (mathematics)"
+  ],
+  "circle": [
+   "Curve"
+  ],
+  "equation": [
+   "Equality (mathematics)",
+   "Number"
+  ],
+  "circular motion": [
+   "Circle"
+  ],
+  "zero (complex analysis)": [
+   "Complex number"
+  ],
+  "plane curve": [
+   "Curve",
+   "Plane (geometry)"
+  ],
+  "sum": [
+   "Addition"
+  ],
+  "division (mathematics)": [
+   "Arithmetic",
+   "Number"
+  ],
+  "binomial": [
+   "Polynomial"
+  ],
+  "injective function": [
+   "Function (mathematics)"
+  ],
+  "circular sector": [
+   "Circle"
+  ],
+  "vector field": [
+   "Vector (mathematics and physics)"
+  ],
+  "elementary matrix": [
+   "Identity matrix"
+  ],
+  "base (exponentiation)": [
+   "Exponentiation"
+  ],
+  "sine wave": [
+   "Curve",
+   "Sine"
+  ],
+  "floor and ceiling functions": [
+   "Number"
+  ],
+  "dot product": [
+   "Product (mathematics)"
+  ],
+  "e (mathematical constant)": [
+   "Number"
+  ],
+  "graph of a function": [
+   "Function (mathematics)"
+  ],
+  "invertible matrix": [
+   "Matrix (mathematics)"
+  ],
+  "logarithm": [
+   "Base (exponentiation)"
+  ],
+  "exponential function": [
+   "Exponentiation",
+   "Function (mathematics)"
+  ],
+  "curve": [
+   "Line (geometry)"
+  ],
+  "origin (mathematics)": [
+   "Point (geometry)"
+  ],
+  "multiplication": [
+   "Arithmetic",
+   "Number"
+  ],
+  "degree (angle)": [
+   "Angle"
+  ],
+  "domain of a function": [
+   "Function (mathematics)"
+  ],
+  "arithmetic mean": [
+   "Arithmetic"
+  ],
+  "inverse element": [
+   "Sign (mathematics)"
+  ],
+  "rational function": [
+   "Function (mathematics)"
+  ],
+  "product topology": [
+   "Product (mathematics)"
+  ],
+  "vector space": [
+   "Vector (mathematics and physics)"
+  ],
+  "spherical law of cosines": [
+   "Trigonometric functions"
+  ],
+  "quadrant (plane geometry)": [
+   "Coordinate system"
+  ],
+  "empty set": [
+   "Set (mathematics)"
+  ],
+  "real line": [
+   "Line (geometry)",
+   "Rational number",
+   "Real number"
+  ],
+  "summation": [
+   "Addition"
+  ],
+  "addition": [
+   "Arithmetic",
+   "Number"
+  ],
+  "parametric equation": [
+   "Equation"
+  ],
+  "square root": [
+   "Square (algebra)"
+  ],
+  "rotation of axes": [
+   "Coordinate system"
+  ],
+  "continuous function": [
+   "Function (mathematics)"
+  ],
+  "complex number": [
+   "Real number"
+  ],
+  "triangular matrix": [
+   "Matrix (mathematics)"
+  ],
+  "quadratic equation": [
+   "Equation"
+  ],
+  "zero of a function": [
+   "Domain of a function"
+  ],
+  "range (mathematics)": [
+   "Function (mathematics)"
+  ],
+  "ellipse": [
+   "Curve"
+  ],
+  "complex conjugate": [
+   "Complex number"
+  ],
+  "absolute value": [
+   "Real number",
+   "Sign (mathematics)"
+  ],
+  "set-builder notation": [
+   "Set (mathematics)"
+  ],
+  "piecewise": [
+   "Function (mathematics)"
+  ],
+  "trigonometric substitution": [
+   "Trigonometric functions"
+  ],
+  "orientation (geometry)": [
+   "Plane (geometry)"
+  ],
+  "simple harmonic motion": [
+   "Force"
+  ],
+  "real number": [
+   "Number"
+  ],
+  "inverse function": [
+   "Function (mathematics)"
+  ],
+  "identity (mathematics)": [
+   "Equality (mathematics)"
+  ],
+  "rational number": [
+   "Number"
+  ],
+  "closed set": [
+   "Set (mathematics)"
+  ],
+  "periodic function": [
+   "Function (mathematics)"
+  ],
+  "subtraction": [
+   "Arithmetic",
+   "Number"
+  ],
+  "linear function": [
+   "Function (mathematics)"
+  ],
+  "polar coordinate system": [
+   "Coordinate system"
+  ],
+  "norm (mathematics)": [
+   "Vector (mathematics and physics)"
+  ],
+  "geometric series": [
+   "Series (mathematics)"
+  ],
+  "cubic function": [
+   "Function (mathematics)"
+  ],
+  "integer": [
+   "Number"
+  ],
+  "constant function": [
+   "Function (mathematics)"
+  ],
+  "complex plane": [
+   "Plane (geometry)"
+  ],
+  "square (algebra)": [
+   "Number"
+  ],
+  "main diagonal": [
+   "Matrix (mathematics)"
+  ],
+  "open set": [
+   "Set (mathematics)"
+  ],
+  "student's t-test": [
+   "Statistical hypothesis testing"
+  ],
+  "dbscan": [
+   "Cluster analysis"
+  ],
+  "biclustering": [
+   "Cluster analysis"
+  ],
+  "spectral clustering": [
+   "Cluster analysis",
+   "Dimensionality reduction"
+  ],
+  "optics algorithm": [
+   "Cluster analysis"
+  ],
+  "pruning (decision trees)": [
+   "Decision tree learning"
+  ],
+  "maximum likelihood": [
+   "Likelihood function"
+  ],
+  "decision tree model": [
+   "Decision tree"
+  ],
+  "random forest": [
+   "Bootstrap aggregating",
+   "Bootstrapping (statistics)",
+   "Decision tree learning",
+   "Ensemble learning"
+  ],
+  "interquartile range": [
+   "Descriptive statistics",
+   "Median",
+   "Quartile",
+   "Statistical dispersion"
+  ],
+  "f1 score": [
+   "Precision and recall"
+  ],
+  "bayesian network": [
+   "Bayes' theorem",
+   "Conditional independence",
+   "Expectation–maximization algorithm",
+   "Joint probability distribution",
+   "Posterior probability",
+   "Prior probability"
+  ],
+  "data mining": [
+   "Anomaly detection",
+   "Association rule learning",
+   "Regression analysis",
+   "Statistical classification",
+   "Statistical hypothesis testing"
+  ],
+  "anomaly detection": [
+   "Cluster analysis",
+   "Outlier"
+  ],
+  "artificial neural network": [
+   "Joint probability distribution",
+   "Statistical classification"
+  ],
+  "adaboost": [
+   "Boosting (machine learning)"
+  ],
+  "naive bayes classifier": [
+   "Bayes' theorem",
+   "Conditional independence",
+   "Correlation and dependence",
+   "Joint probability distribution",
+   "Maximum likelihood",
+   "Statistical classification"
+  ],
+  "bayes' theorem": [
+   "Conditional probability distribution"
+  ],
+  "boosting (machine learning)": [
+   "Ensemble learning",
+   "Joint probability distribution"
+  ],
+  "level of measurement": [
+   "Central tendency",
+   "Standard deviation",
+   "Statistical dispersion"
+  ],
+  "statistical hypothesis testing": [
+   "Confidence interval",
+   "Null hypothesis"
+  ],
+  "mutation (genetic algorithm)": [
+   "Genetic algorithm"
+  ],
+  "support vector machine": [
+   "Joint probability distribution",
+   "Linear separability",
+   "Statistical classification"
+  ],
+  "k-medoids": [
+   "Cluster analysis"
+  ],
+  "statistical significance": [
+   "Statistical hypothesis testing"
+  ],
+  "feedforward neural network": [
+   "Artificial neural network"
+  ],
+  "hierarchical clustering": [
+   "Cluster analysis"
+  ],
+  "sensitivity and specificity": [
+   "False positives and false negatives",
+   "Statistical classification"
+  ],
+  "decision tree learning": [
+   "Decision tree",
+   "Joint probability distribution"
+  ],
+  "precision and recall": [
+   "Information retrieval",
+   "Statistical classification",
+   "Type I and type II errors"
+  ],
+  "mixture model": [
+   "Cluster analysis",
+   "Conditional probability",
+   "Probability density function"
+  ],
+  "expectation–maximization algorithm": [
+   "Maximum likelihood"
+  ],
+  "clustering high-dimensional data": [
+   "Cluster analysis"
+  ],
+  "least squares": [
+   "Regression analysis"
+  ],
+  "cluster analysis": [
+   "Correlation and dependence",
+   "Data analysis"
+  ],
+  "type i and type ii errors": [
+   "Statistical hypothesis testing"
+  ],
+  "poisson regression": [
+   "Likelihood function",
+   "Regression analysis"
+  ],
+  "fuzzy clustering": [
+   "Cluster analysis"
+  ],
+  "conditional independence": [
+   "Conditional probability distribution"
+  ],
+  "genetic algorithm": [
+   "Natural selection"
+  ],
+  "k-means clustering": [
+   "Cluster analysis",
+   "Joint probability distribution"
+  ],
+  "confidence interval": [
+   "Sample (statistics)",
+   "Standard deviation"
+  ],
+  "fitness function": [
+   "Genetic algorithm"
+  ],
+  "principal component analysis": [
+   "Correlation and dependence",
+   "Dimensionality reduction"
+  ],
+  "machine learning": [
+   "Joint probability distribution"
+  ],
+  "association rule learning": [
+   "Conditional probability"
+  ],
+  "backpropagation": [
+   "Artificial neural network"
+  ],
+  "decision tree": [
+   "Conditional probability",
+   "Statistical classification"
+  ],
+  "positive and negative predictive values": [
+   "False positives and false negatives"
+  ],
+  "single-linkage clustering": [
+   "Cluster analysis"
+  ],
+  "joint probability distribution": [
+   "Probability density function"
+  ],
+  "apriori algorithm": [
+   "Association rule learning"
+  ],
+  "sample (statistics)": [
+   "Statistical population"
+  ],
+  "likelihood function": [
+   "Conditional probability distribution"
+  ],
+  "posterior probability": [
+   "Conditional probability distribution"
+  ],
+  "stepwise regression": [
+   "Regression analysis"
+  ],
+  "gradient descent": [
+   "Maxima and minima"
+  ],
+  "sampling (statistics)": [
+   "Statistical population"
+  ],
+  "multiclass classification": [
+   "Joint probability distribution",
+   "Statistical classification"
+  ],
+  "central tendency": [
+   "Arithmetic mean",
+   "Median",
+   "Mode (statistics)"
+  ],
+  "regression analysis": [
+   "Arithmetic mean"
+  ],
+  "linear separability": [
+   "Hyperplane"
+  ],
+  "receiver operating characteristic": [
+   "Statistical classification"
+  ],
+  "correlation and dependence": [
+   "Arithmetic mean",
+   "Standard deviation"
+  ],
+  "conditional probability distribution": [
+   "Conditional probability",
+   "Probability density function"
+  ],
+  "linear regression": [
+   "Regression analysis"
+  ]
+ }
+}

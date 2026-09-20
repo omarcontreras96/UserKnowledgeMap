@@ -175,6 +175,13 @@ worker and the next UserPromptSubmit hook can overlap.
 subfield with ≥ 3 `exposed` leaves marks itself `exposed`), drop session scratch file, one log line.
 Stretch: AL-CPL prerequisite edges for the four covered domains → mark prerequisites `inferred`.
 **Done when:** ending the demo session updates `physics/classical-mechanics` to `exposed`.
+**Done 2026-09-20:** rules 1-2 only climb from conversation-generated leaves (seeded skeleton fields
+never promote their discipline). AL-CPL wired: `data/prereqs.json` (382 concepts, 569 direct edges
+after transitive reduction); a used leaf marks missing prerequisites `inferred` (torque -> lever).
+Live: SessionEnd fires in headless mode; `physics/mechanics/classical-mechanics` went unknown ->
+exposed with evidence naming the five concepts. In headless runs the session ends before the Stop
+worker finishes, so consolidation lands at the next session end; interactive sessions are long
+enough that this does not matter. Stale session files are swept after 6 h.
 
 ### 7. Tree visualization (60 min)
 `viz/index.html`, static, D3 from cdnjs. Loads `skeleton.json` + `profile.json` (served by
