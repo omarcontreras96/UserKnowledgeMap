@@ -104,13 +104,27 @@ def tracked_names(profile: dict) -> dict[str, str]:
     return idx
 
 
+def stem_pattern(name: str) -> str:
+    """Regex that matches inflections of each word: 'precession' also hits 'precess', 'precessing';
+    'torque' hits 'torques', 'torqued'. Words under 5 letters are matched exactly."""
+    parts = []
+    for w in re.split(r"[\s\-]+", name.lower()):
+        if len(w) >= 5:
+            stem = re.sub(r"(?:ation|ition|ssion|sion|tion|ing|ies|es|ed|s|y)$", "", w)
+            stem = stem if len(stem) >= 4 else w
+            parts.append(re.escape(stem) + r"[a-z]{0,5}")
+        else:
+            parts.append(re.escape(w))
+    return r"(?<![a-z0-9])" + r"[\s\-]+".join(parts) + r"(?![a-z0-9])"
+
+
 def find_used(text: str, profile: dict, exclude: set[str]) -> list[tuple[str, str]]:
     low = text.lower()
     hits = []
     for name, nid in tracked_names(profile).items():
         if name in exclude or len(name) < 4 or name in GENERIC_NAMES:
             continue
-        if re.search(rf"(?<![a-z0-9]){re.escape(name)}(?:s|es)?(?![a-z0-9])", low):
+        if re.search(stem_pattern(name), low):
             hits.append((name, nid))
     return hits
 
@@ -131,36 +145,19 @@ def confirm_used(text: str, names: list[str]) -> list[str]:
 def place_new_concept(term: str, session: dict) -> tuple[str, str] | None:
     """Return (parent_id, display_name) for a concept not in the skeleton, or None if the model says
     the phrase is not a discrete concept (a comparison, a task, a question)."""
-    sk = lib.load_skeleton()
-    disciplines = {nid: n["name"] for nid, n in sk["nodes"].items() if n["level"] == "discipline"}
     res = lib.chat_json(
         "You place concepts in an academic taxonomy. Return JSON {\"is_concept\": bool, "
         "\"discipline\": <one of the given ids>, \"field\": <short name of the most specific field it "
         "belongs to>, \"name\": <short canonical name, 1-4 words, no parentheses>}. is_concept is false "
         "when the phrase is a comparison, a task, an opinion, or otherwise not a nameable concept.",
-        json.dumps({"concept": term, "disciplines": disciplines}), timeout=6.0, max_tokens=150)
+        json.dumps({"concept": term, "disciplines": lib.disciplines()}), timeout=6.0, max_tokens=150)
     if res is None:
-        parents = [p for p in session.get("last_parents", []) if p in sk["nodes"]]
-        return (parents[0] if parents else "general"), term.capitalize()
+        return lib.place_under(None, None, session), term[:1].upper() + term[1:]
     if not res.get("is_concept", True):
         return None
     name = strip_paren(res.get("name") or term)
     name = name[:1].upper() + name[1:]
-    disc = res.get("discipline")
-    parents = [p for p in session.get("last_parents", []) if p in sk["nodes"]]
-    if parents and (not disc or parents[0].split("/")[0] == disc):
-        return parents[0], name          # the session's current topic wins when it agrees
-    if disc not in disciplines:
-        return (parents[0] if parents else "general"), name
-    field = lib.find_by_name(res.get("field", ""))
-    if field and field.startswith(disc + "/"):
-        return field, name
-    want = (res.get("field") or "").lower()
-    for cid in sk["children"].get(disc, []):
-        cname = sk["nodes"][cid]["name"].lower()
-        if want and (want in cname or cname in want):
-            return cid, name
-    return disc, name
+    return lib.place_under(res.get("discipline"), res.get("field"), session), name
 
 
 def resolve_or_create(term: str, profile: dict, session: dict):
@@ -179,9 +176,7 @@ def resolve_or_create(term: str, profile: dict, session: dict):
             profile["nodes"][existing]["aliases"].append(term)
         return existing, None, None
     if parent == "general":
-        profile["nodes"].setdefault("general", {"state": "exposed", "source": "generated", "name": "General",
-                                                "parent": None, "evidence": "auto: catch-all",
-                                                "updated_at": lib.now()})
+        lib.ensure_general(profile)
     return f"{parent}/{lib.slug(name)}", name, parent
 
 
@@ -195,6 +190,11 @@ def main():
     if len(text) < 4:
         return
 
+    with lib.locked():
+        _run(text, session_id)
+
+
+def _run(text: str, session_id: str) -> None:
     profile = lib.load_profile()
     session = lib.load_session_state(session_id)
     changes: list[dict] = []

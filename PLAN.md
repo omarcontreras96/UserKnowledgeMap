@@ -162,6 +162,13 @@ new name → generated leaf, `exposed`. Append diff. Run detached (`subprocess.P
 immediately) so the turn never blocks on the API call.
 **Done when:** after Claude explains the spinning top, `profile.json` gains `torque` and
 `angular-momentum` leaves under `physics/classical-mechanics` in state `exposed`.
+**Done 2026-09-20:** live two-session test. Session 1 (spinning top) -> spin, angular momentum,
+precession, torque, friction all `exposed` under `physics/mechanics/classical-mechanics`, hook returned
+in 50 ms, worker finished in ~15 s. Session 2 (user restates it in their own words) -> precession and
+friction `used`. Names are filtered to textbook-index form (1-3 words, no "X and Y" compounds); the
+worker runs the fast model at low reasoning since latency is free when detached. Stem matching lets
+"precess"/"precessing" hit "precession". Profile writes go through a file lock because the Stop
+worker and the next UserPromptSubmit hook can overlap.
 
 ### 6. SessionEnd consolidation (20 min)
 `scripts/on_session_end.py`: parent inference (a `used` leaf marks its subfield ≥ `inferred`; a

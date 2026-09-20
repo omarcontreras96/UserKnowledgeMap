@@ -10,9 +10,11 @@ Precedence when transitions conflict:
 """
 from __future__ import annotations
 
+import fcntl
 import json
 import os
 import re
+from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -59,12 +61,12 @@ def openai_client(timeout: float = 20.0):
 
 
 def chat_json(system: str, user: str, *, model: str | None = None, timeout: float = 8.0,
-              max_tokens: int = 600) -> dict | None:
+              max_tokens: int = 600, reasoning: str = "minimal") -> dict | None:
     """One fast JSON-mode call. Returns the parsed object, or None on any failure (hooks must not break)."""
     try:
         c = openai_client(timeout=timeout)
         r = c.chat.completions.create(
-            model=model or MODEL_FAST, reasoning_effort="minimal",
+            model=model or MODEL_FAST, reasoning_effort=reasoning,
             response_format={"type": "json_object"},
             messages=[{"role": "system", "content": system}, {"role": "user", "content": user}],
             max_completion_tokens=max_tokens,
@@ -82,6 +84,51 @@ def debug(msg: str) -> None:
             f.write(f"{now()} {msg}\n")
     except OSError:
         pass
+
+
+@contextmanager
+def locked():
+    """Exclusive lock on $KNOWLEDGE_HOME/.lock. Hooks run concurrently (Stop's worker is detached),
+    so every read-modify-write of the profile goes inside this."""
+    f = (knowledge_home() / ".lock").open("w")
+    try:
+        fcntl.flock(f, fcntl.LOCK_EX)
+        yield
+    finally:
+        fcntl.flock(f, fcntl.LOCK_UN)
+        f.close()
+
+
+def place_under(discipline: str | None, field: str | None, session: dict | None = None) -> str:
+    """Pick a parent node id for a new concept from a model's (discipline id, field name) guess.
+    The session's current topic wins when it agrees with the discipline. Falls back to 'general'."""
+    sk = load_skeleton()
+    parents = [p for p in (session or {}).get("last_parents", []) if p in sk["nodes"]]
+    if parents and (not discipline or parents[0].split("/")[0] == discipline):
+        return parents[0]
+    if discipline not in sk["nodes"] or sk["nodes"][discipline]["level"] != "discipline":
+        return parents[0] if parents else "general"
+    fid = find_by_name(field or "")
+    if fid and fid.startswith(discipline + "/"):
+        return fid
+    want = (field or "").lower()
+    if want:
+        for cid in sk["children"].get(discipline, []):
+            cname = sk["nodes"][cid]["name"].lower()
+            if want in cname or cname in want:
+                return cid
+    return discipline
+
+
+def ensure_general(profile: dict) -> None:
+    profile["nodes"].setdefault("general", {
+        "state": "exposed", "source": "generated", "name": "General", "parent": None,
+        "evidence": "auto: catch-all for concepts the taxonomy has no home for", "updated_at": now()})
+
+
+def disciplines() -> dict[str, str]:
+    sk = load_skeleton()
+    return {nid: n["name"] for nid, n in sk["nodes"].items() if n["level"] == "discipline"}
 
 
 def session_state_path(session_id: str) -> Path:
