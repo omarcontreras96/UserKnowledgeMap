@@ -22,6 +22,16 @@ viz/       static tree view
 python3 -m venv ~/.venvs/ukm && ~/.venvs/ukm/bin/pip install -r requirements.txt
 python3 scripts/build_skeleton.py          # writes data/skeleton.json
 scripts/reset_demo.sh                       # copies the persona seed to $KNOWLEDGE_HOME
+~/.venvs/ukm/bin/python scripts/install_hooks.py   # registers hooks in ~/.claude/settings.json
 ```
 
-`KNOWLEDGE_HOME` defaults to `~/.knowledge`.
+`KNOWLEDGE_HOME` defaults to `~/.knowledge`. The hooks that call a model read `OPENAI_API_KEY` from
+`$KNOWLEDGE_HOME/.env` (one `KEY=value` line, chmod 600). The SessionStart hook needs no key.
+
+## Status
+
+- [x] Skeleton, persona seed, profile library
+- [x] SessionStart hook: profile block changes how Claude explains (see `eval/samples/`)
+- [ ] UserPromptSubmit hook (asked / used / user-stated corrections)
+- [ ] Stop hook (exposed), SessionEnd consolidation
+- [ ] Tree visualization, eval, plugin packaging

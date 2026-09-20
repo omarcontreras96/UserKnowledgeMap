@@ -18,8 +18,10 @@ SundAI hack, 20 Sep 2026. Steps are ordered by demo value; cut from the bottom.
 - **Storage:** `~/.knowledge/profile.json` (current state) + `~/.knowledge/log.jsonl` (append-only diffs).
   `KNOWLEDGE_HOME` env var overrides the directory so the demo can point at the repo.
 - **Harness:** Claude Code hooks in `~/.claude/settings.json` first; plugin packaging last.
-- **Models:** `claude-haiku-4-5-20251001` inside hooks (latency), `claude-sonnet-5` for eval
-  generation, `claude-opus-5` as eval judge. Load the `claude-api` skill before writing API code.
+- **Models:** the user has an OpenAI key, so hooks and eval call OpenAI: `gpt-5-mini` inside hooks
+  (latency), `gpt-5` for eval generation and judging. Override with `UKM_MODEL_FAST`, `UKM_MODEL_GEN`,
+  `UKM_MODEL_JUDGE`. The key is read from `~/.knowledge/.env` (never committed). The agent being
+  profiled is still Claude in Claude Code; only the bookkeeping calls use OpenAI.
 - **Persona for the demo:** MBA, business undergrad, ex-consulting. Strong in business/economics,
   exposed to literature/history, explicit gaps in physics, calculus, logic.
 
@@ -123,6 +125,9 @@ Register in `~/.claude/settings.json`:
 ```
 **Done when:** a fresh `claude` session asked "why does a spinning top stay up?" defines torque and
 angular momentum inline instead of assuming them. Compare against a session with the hook disabled.
+**Done 2026-09-20:** see `eval/samples/spinning-top-*.md`. Control opens with "angular momentum, a
+vector" and uses torque, center of mass, right angles. Profile run says "two ideas make that work",
+builds from a rolling ball, introduces only angular momentum and precession, never says torque or vector.
 
 ### 4. UserPromptSubmit hook: detect asked/used, inject the delta (45 min)
 `scripts/on_prompt.py` reads stdin JSON, takes `user_input`:

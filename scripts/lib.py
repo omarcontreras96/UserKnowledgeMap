@@ -30,6 +30,34 @@ def knowledge_home() -> Path:
     return p
 
 
+def load_env() -> None:
+    """Load KEY=VALUE lines from $KNOWLEDGE_HOME/.env and <repo>/.env into os.environ (no override)."""
+    for p in (knowledge_home() / ".env", ROOT / ".env"):
+        if not p.exists():
+            continue
+        for line in p.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            k, v = line.split("=", 1)
+            os.environ.setdefault(k.strip(), v.strip().strip("'\""))
+
+
+# Model ids used by hooks and eval. Override with env vars of the same name.
+load_env()
+MODEL_FAST = os.environ.get("UKM_MODEL_FAST", "gpt-5-mini")     # inside hooks: latency matters
+MODEL_GEN = os.environ.get("UKM_MODEL_GEN", "gpt-5")            # eval: answer generation
+MODEL_JUDGE = os.environ.get("UKM_MODEL_JUDGE", "gpt-5")        # eval: judge
+
+
+def openai_client():
+    """Lazy OpenAI client; raises a clear error if the key is missing."""
+    if not os.environ.get("OPENAI_API_KEY"):
+        raise RuntimeError("OPENAI_API_KEY not set; put it in ~/.knowledge/.env (see README)")
+    from openai import OpenAI
+    return OpenAI()
+
+
 def profile_path() -> Path:
     return knowledge_home() / "profile.json"
 
