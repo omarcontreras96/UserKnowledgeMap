@@ -15,10 +15,10 @@ text appended to the system prompt, or by OpenAI with --generator openai. A sepa
   words         answer length (the tree should not just make answers longer)
 
 Usage:
-  ~/.venvs/ukm/bin/python eval/run_eval.py                # Claude generation, resumes from results.json
-  ~/.venvs/ukm/bin/python eval/run_eval.py --fresh        # ignore cached answers/judgments
-  ~/.venvs/ukm/bin/python eval/run_eval.py --generator openai
-  ~/.venvs/ukm/bin/python eval/run_eval.py --only phys-top,math-deriv --conditions A,C
+  ~/.venvs/bonsai/bin/python eval/run_eval.py                # Claude generation, resumes from results.json
+  ~/.venvs/bonsai/bin/python eval/run_eval.py --fresh        # ignore cached answers/judgments
+  ~/.venvs/bonsai/bin/python eval/run_eval.py --generator openai
+  ~/.venvs/bonsai/bin/python eval/run_eval.py --only phys-top,math-deriv --conditions A,C
 Writes eval/results.json (raw) and eval/results.md (tables).
 """
 from __future__ import annotations
@@ -90,8 +90,8 @@ def condition_text(cond: str, profile: dict) -> str | None:
 
 def gen_claude(question: str, system_extra: str | None, model: str | None, timeout: int = 300) -> str:
     env = {k: v for k, v in os.environ.items() if k not in ("CLAUDECODE", "CLAUDE_CODE_ENTRYPOINT")}
-    env["UKM_DISABLED"] = "1"
-    env["KNOWLEDGE_HOME"] = tempfile.mkdtemp(prefix="ukm-eval-")
+    env["BONSAI_DISABLED"] = "1"
+    env["BONSAI_HOME"] = tempfile.mkdtemp(prefix="bonsai-eval-")
     cmd = ["claude", "-p", question, "--output-format", "text"]
     if system_extra:
         cmd += ["--append-system-prompt", system_extra]

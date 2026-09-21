@@ -2,7 +2,7 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "knowledge-map",
+      "name": "bonsai",
       "runtimeExecutable": "python3",
       "runtimeArgs": ["viz/serve.py", "--port", "8766"],
       "port": 8766

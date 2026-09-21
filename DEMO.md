@@ -6,14 +6,14 @@ Every beat below has already worked in headless runs on 2026-09-20; the sample a
 ## Setup (2 minutes before)
 
 ```bash
-cd UserKnowledgeMap
-claude plugin list | grep -A3 user-knowledge-map        # must say "enabled" (the plugin is the hook install)
+cd bonsai
+claude plugin list | grep -A3 bonsai        # must say "enabled" (the plugin is the hook install)
 scripts/reset_demo.sh                                    # persona seed, empty log
 python3 viz/serve.py &                                   # http://localhost:8766, click "fit"
 ```
 
-If the plugin is not installed: `claude plugin marketplace add https://github.com/omarcontreras96/UserKnowledgeMap`
-then `claude plugin install user-knowledge-map@user-knowledge-map --scope user`. Do NOT also run
+If the plugin is not installed: `claude plugin marketplace add https://github.com/omarcontreras96/bonsai`
+then `claude plugin install bonsai@bonsai --scope user`. Do NOT also run
 `scripts/install_hooks.py`; that registers the same hooks a second time and everything fires twice.
 
 Screen layout: browser with the map on the left half, a terminal with `claude` on the right half.
@@ -76,7 +76,7 @@ Start `claude` again and ask:
 Expected: the answer uses torque and precession as known, and does not re-teach them. "Same file,
 new session. Nothing lives in the harness."
 
-Open `~/.knowledge/profile.json` in an editor for two seconds: "This is the whole memory. JSON,
+Open `~/.bonsai/profile.json` in an editor for two seconds: "This is the whole memory. JSON,
 one file, yours. Any agent that can read a file can use it."
 
 ## Beat 4: honest limits (20 s)
@@ -93,7 +93,7 @@ one file, yours. Any agent that can read a file can use it."
 - Map not updating: check the terminal running `viz/serve.py`; the page polls `/api/state` every 2 s.
 - Torque not turning orange: the phrase must match "what is X" / "what's X" / "explain X" /
   "I don't understand X". Rephrase as "what is torque?".
-- Stop hook slow: it is detached and depends on the OpenAI key in `~/.knowledge/.env`; 10-20 s is
+- Stop hook slow: it is detached and depends on the OpenAI key in `~/.bonsai/.env`; 10-20 s is
   normal. Keep talking.
 - Model ignores the profile: it happens on very short questions. Ask a "why does ..." question.
 - Nuclear option: `scripts/reset_demo.sh` and restart `claude`.
@@ -101,6 +101,6 @@ one file, yours. Any agent that can read a file can use it."
 ## After the demo
 
 ```bash
-claude plugin disable user-knowledge-map@user-knowledge-map   # hooks off, Claude behaves normally
-claude plugin enable user-knowledge-map@user-knowledge-map    # back on before the next demo
+claude plugin disable bonsai@bonsai   # hooks off, Claude behaves normally
+claude plugin enable bonsai@bonsai    # back on before the next demo
 ```

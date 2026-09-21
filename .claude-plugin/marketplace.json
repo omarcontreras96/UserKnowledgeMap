@@ -1,16 +1,16 @@
 {
-  "name": "user-knowledge-map",
+  "name": "bonsai",
   "owner": {
     "name": "Omar Contreras",
     "url": "https://github.com/omarcontreras96"
   },
   "metadata": {
-    "description": "UserKnowledgeMap: a user-owned knowledge profile for AI agents (SundAI hack, Sep 2026)"
+    "description": "bonsai: a user-owned knowledge profile for AI agents (SundAI hack, Sep 2026)"
   },
   "plugins": [
     {
-      "name": "user-knowledge-map",
-      "description": "Reads ~/.knowledge/profile.json at session start so Claude explains things from what you already know, and updates it from the conversation.",
+      "name": "bonsai",
+      "description": "Reads ~/.bonsai/profile.json at session start so Claude explains things from what you already know, and updates it from the conversation.",
       "source": "./",
       "category": "productivity"
     }

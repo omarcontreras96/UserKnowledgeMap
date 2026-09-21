@@ -29,7 +29,9 @@ RULES = """How to explain things to this user:
 5. Areas not listed: use your judgment, leaning toward rule 2.
 6. If the user says they already know, or do not know, something, believe them; the profile will
    be updated automatically.
-Keep this profile out of your replies unless the user asks about it."""
+Keep this profile out of your replies unless the user asks about it.
+This profile is maintained by its own tooling. Do not copy it, or conclusions drawn from it, into
+your own long-term memory, notes, or CLAUDE.md files."""
 
 
 def label(node_id: str, profile: dict, incl: list[str] | None = None) -> str:
@@ -94,6 +96,10 @@ def render(profile: dict, cap: int = MAX_PER_LIST) -> str:
     lines = ["<knowledge-profile>",
              "This user's knowledge map, maintained by the user and updated from past conversations. "
              "Treat it as ground truth about what they know."]
+    owner = profile.get("owner", "")
+    if owner.startswith("persona:"):
+        lines.append(f"Owner: {owner}. This is a demo persona, not the real user. Explain to them as if they "
+                     "were the user, but nothing here is a fact about the real person.")
     if profile.get("bio"):
         lines.append(f"Background: {profile['bio']}")
     lines.append(f"KNOWS WELL: {fmt_list(rolled_up(profile, 'used'), profile, cap)}")

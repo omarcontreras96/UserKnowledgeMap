@@ -15,12 +15,12 @@ SundAI hack, 20 Sep 2026. Steps are ordered by demo value; cut from the bottom.
   model at explanation time via the dependency check in the rules block (step 3). Real prerequisite
   edges exist only where AL-CPL gives them (geometry, physics, precalculus, data mining) and are used
   for consolidation inference as a stretch. Say this out loud on the slide.
-- **Storage:** `~/.knowledge/profile.json` (current state) + `~/.knowledge/log.jsonl` (append-only diffs).
-  `KNOWLEDGE_HOME` env var overrides the directory so the demo can point at the repo.
+- **Storage:** `~/.bonsai/profile.json` (current state) + `~/.bonsai/log.jsonl` (append-only diffs).
+  `BONSAI_HOME` env var overrides the directory so the demo can point at the repo.
 - **Harness:** Claude Code hooks in `~/.claude/settings.json` first; plugin packaging last.
 - **Models:** the user has an OpenAI key, so hooks and eval call OpenAI: `gpt-5-mini` inside hooks
-  (latency), `gpt-5` for eval generation and judging. Override with `UKM_MODEL_FAST`, `UKM_MODEL_GEN`,
-  `UKM_MODEL_JUDGE`. The key is read from `~/.knowledge/.env` (never committed). The agent being
+  (latency), `gpt-5` for eval generation and judging. Override with `BONSAI_MODEL_FAST`, `BONSAI_MODEL_GEN`,
+  `BONSAI_MODEL_JUDGE`. The key is read from `~/.bonsai/.env` (never committed). The agent being
   profiled is still Claude in Claude Code; only the bookkeeping calls use OpenAI.
 - **Persona for the demo:** MBA, business undergrad, ex-consulting. Strong in business/economics,
   exposed to literature/history, explicit gaps in physics, calculus, logic.
@@ -89,7 +89,7 @@ Write `data/skeleton.json` with `nodes[id] = {name, level, parent, branch, wiki_
 - `unknown` (explicit): physics (classical mechanics, electromagnetism), mathematics beyond
   algebra (calculus, linear algebra, probability theory), logic (mathematical logic), computer science
   (algorithms, programming).
-Copy to `$KNOWLEDGE_HOME/profile.json` with a `make reset` / `scripts/reset_demo.sh`.
+Copy to `$BONSAI_HOME/profile.json` with a `make reset` / `scripts/reset_demo.sh`.
 **Done when:** the file validates against the skeleton (every id exists) via `lib.validate()`.
 
 ### 3. Context renderer + SessionStart hook (45 min) — first demoable moment
@@ -141,7 +141,7 @@ builds from a rolling ball, introduces only angular momentum and precession, nev
   `user-stated`; `I don't know X`, `I've never heard of X`, `never learned X` → `unknown`, evidence
   `user-stated`. User statements outrank every other transition, including `inferred`.
 - Unresolvable X → create a generated leaf under the most recently `exposed` subfield in this session
-  (session id → last touched subfield, stored in `$KNOWLEDGE_HOME/session-<id>.json`).
+  (session id → last touched subfield, stored in `$BONSAI_HOME/session-<id>.json`).
 Print to stdout (enters Claude's context): `Knowledge profile update: "Torque" → asked (was: exposed).
 Explain it from scratch.` Append diff to `log.jsonl`.
 **Done when:** typing "wait, what's torque?" mid-session produces a visibly simpler re-explanation and
@@ -185,7 +185,7 @@ enough that this does not matter. Stale session files are swept after 6 h.
 
 ### 7. Tree visualization (60 min)
 `viz/index.html`, static, D3 from cdnjs. Loads `skeleton.json` + `profile.json` (served by
-`python3 -m http.server` from the repo, with `$KNOWLEDGE_HOME` symlinked in). Collapsible tree or
+`python3 -m http.server` from the repo, with `$BONSAI_HOME` symlinked in). Collapsible tree or
 sunburst, only disciplines expanded by default, colored by state:
 used = green, exposed = blue, asked = orange, inferred = light blue, unknown = red, no data = grey.
 Right panel tails `log.jsonl`. Poll both files every 2 s so the recolor happens live during the demo.

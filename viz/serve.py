@@ -2,7 +2,7 @@
 """Serve the tree visualization plus live JSON of the profile and log.
 
     python3 viz/serve.py            # http://localhost:8766
-    KNOWLEDGE_HOME=... python3 viz/serve.py --port 9000
+    BONSAI_HOME=... python3 viz/serve.py --port 9000
 
 Endpoints: /  (index.html), /api/skeleton, /api/profile, /api/log?n=50, /api/reset (POST; re-seeds
 the demo persona), /api/state (profile + log in one call, what the page polls).
@@ -66,7 +66,7 @@ def main():
     ap.add_argument("--port", type=int, default=8766)
     args = ap.parse_args()
     srv = ThreadingHTTPServer(("127.0.0.1", args.port), Handler)
-    print(f"knowledge map at http://localhost:{args.port}  (profile: {lib.profile_path()})")
+    print(f"bonsai at http://localhost:{args.port}  (profile: {lib.profile_path()})")
     try:
         srv.serve_forever()
     except KeyboardInterrupt:

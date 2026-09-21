@@ -127,7 +127,7 @@ def main():
         return
     if not looks_like_prose(payload.get("last_assistant_message") or ""):
         return
-    fd, tmp = tempfile.mkstemp(prefix="ukm-stop-", suffix=".json", dir=str(lib.knowledge_home()))
+    fd, tmp = tempfile.mkstemp(prefix="bonsai-stop-", suffix=".json", dir=str(lib.knowledge_home()))
     with os.fdopen(fd, "w", encoding="utf-8") as f:
         json.dump(payload, f)
     subprocess.Popen([sys.executable, __file__, "--worker", tmp], start_new_session=True,

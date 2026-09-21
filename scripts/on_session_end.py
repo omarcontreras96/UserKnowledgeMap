@@ -9,7 +9,7 @@ Rules (one level only; the tree is containment, not a curriculum, so we do not c
      overrides evidence.
   3. Prerequisite inference where AL-CPL has edges (data/prereqs.json): a `used` leaf marks each
      missing direct prerequisite `inferred`, placed under the same parent.
-Also deletes $KNOWLEDGE_HOME/session-<id>.json.
+Also deletes $BONSAI_HOME/session-<id>.json.
 
 Manual test: echo '{"session_id":"t"}' | on_session_end.py
 """

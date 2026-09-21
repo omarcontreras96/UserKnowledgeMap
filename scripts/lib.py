@@ -27,18 +27,18 @@ USER_STATED = "user-stated"
 
 
 def disabled() -> bool:
-    """UKM_DISABLED=1 makes every hook a no-op (used by the eval, and handy for a quiet session)."""
-    return os.environ.get("UKM_DISABLED", "") not in ("", "0", "false")
+    """BONSAI_DISABLED=1 makes every hook a no-op (used by the eval, and handy for a quiet session)."""
+    return os.environ.get("BONSAI_DISABLED", "") not in ("", "0", "false")
 
 
 def knowledge_home() -> Path:
-    p = Path(os.environ.get("KNOWLEDGE_HOME", Path.home() / ".knowledge")).expanduser()
+    p = Path(os.environ.get("BONSAI_HOME", Path.home() / ".bonsai")).expanduser()
     p.mkdir(parents=True, exist_ok=True)
     return p
 
 
 def load_env() -> None:
-    """Load KEY=VALUE lines from $KNOWLEDGE_HOME/.env and <repo>/.env into os.environ (no override)."""
+    """Load KEY=VALUE lines from $BONSAI_HOME/.env and <repo>/.env into os.environ (no override)."""
     for p in (knowledge_home() / ".env", ROOT / ".env"):
         if not p.exists():
             continue
@@ -52,15 +52,15 @@ def load_env() -> None:
 
 # Model ids used by hooks and eval. Override with env vars of the same name.
 load_env()
-MODEL_FAST = os.environ.get("UKM_MODEL_FAST", "gpt-5-mini")     # inside hooks: latency matters
-MODEL_GEN = os.environ.get("UKM_MODEL_GEN", "gpt-5")            # eval: answer generation
-MODEL_JUDGE = os.environ.get("UKM_MODEL_JUDGE", "gpt-5")        # eval: judge
+MODEL_FAST = os.environ.get("BONSAI_MODEL_FAST", "gpt-5-mini")     # inside hooks: latency matters
+MODEL_GEN = os.environ.get("BONSAI_MODEL_GEN", "gpt-5")            # eval: answer generation
+MODEL_JUDGE = os.environ.get("BONSAI_MODEL_JUDGE", "gpt-5")        # eval: judge
 
 
 def openai_client(timeout: float = 20.0):
     """Lazy OpenAI client; raises a clear error if the key is missing."""
     if not os.environ.get("OPENAI_API_KEY"):
-        raise RuntimeError("OPENAI_API_KEY not set; put it in ~/.knowledge/.env (see README)")
+        raise RuntimeError("OPENAI_API_KEY not set; put it in ~/.bonsai/.env (see README)")
     from openai import OpenAI
     return OpenAI(timeout=timeout, max_retries=0)
 
@@ -83,7 +83,7 @@ def chat_json(system: str, user: str, *, model: str | None = None, timeout: floa
 
 
 def debug(msg: str) -> None:
-    """Append to $KNOWLEDGE_HOME/debug.log (hooks cannot print diagnostics to the user)."""
+    """Append to $BONSAI_HOME/debug.log (hooks cannot print diagnostics to the user)."""
     try:
         with (knowledge_home() / "debug.log").open("a", encoding="utf-8") as f:
             f.write(f"{now()} {msg}\n")
@@ -93,7 +93,7 @@ def debug(msg: str) -> None:
 
 @contextmanager
 def locked():
-    """Exclusive lock on $KNOWLEDGE_HOME/.lock. Hooks run concurrently (Stop's worker is detached),
+    """Exclusive lock on $BONSAI_HOME/.lock. Hooks run concurrently (Stop's worker is detached),
     so every read-modify-write of the profile goes inside this."""
     f = (knowledge_home() / ".lock").open("w")
     try:

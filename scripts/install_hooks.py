@@ -14,10 +14,10 @@ import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-PY = Path.home() / ".venvs" / "ukm" / "bin" / "python"
+PY = Path.home() / ".venvs" / "bonsai" / "bin" / "python"
 if not PY.exists():
     PY = Path(sys.executable)
-MARK = "UserKnowledgeMap"
+MARK = "bonsai"
 
 # event -> (script, timeout seconds). Only the scripts that exist are installed.
 HOOKS = {
@@ -64,7 +64,7 @@ def main():
         shutil.copy(args.settings, args.settings.with_suffix(f".json.bak-{int(time.time())}"))
     args.settings.parent.mkdir(parents=True, exist_ok=True)
     args.settings.write_text(json.dumps(settings, indent=2) + "\n")
-    print("removed UserKnowledgeMap hooks" if args.remove else "installed:\n  " + "\n  ".join(installed))
+    print("removed bonsai hooks" if args.remove else "installed:\n  " + "\n  ".join(installed))
     print(f"settings: {args.settings}")
 
 

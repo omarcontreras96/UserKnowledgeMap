@@ -6,8 +6,8 @@ system prompt, the user's message goes through on_prompt (asked / used / correct
 goes through on_stop (exposed), and the map at http://localhost:8766 updates exactly as it does for
 Claude Code, because the file is the memory, not the harness.
 
-    ~/.venvs/ukm/bin/python scripts/chat_openai.py            # uses UKM_MODEL_GEN (gpt-5)
-    ~/.venvs/ukm/bin/python scripts/chat_openai.py --model gpt-5-mini
+    ~/.venvs/bonsai/bin/python scripts/chat_openai.py            # uses BONSAI_MODEL_GEN (gpt-5)
+    ~/.venvs/bonsai/bin/python scripts/chat_openai.py --model gpt-5-mini
 Type /quit to leave (runs the session-end consolidation).
 """
 from __future__ import annotations

@@ -38,7 +38,7 @@ def fetch() -> str:
     q = urllib.parse.urlencode({
         "action": "parse", "page": PAGE, "prop": "wikitext", "format": "json", "formatversion": "2",
     })
-    req = urllib.request.Request(f"{API}?{q}", headers={"User-Agent": "UserKnowledgeMap/0.1 (hackathon)"})
+    req = urllib.request.Request(f"{API}?{q}", headers={"User-Agent": "bonsai/0.1 (hackathon)"})
     with urllib.request.urlopen(req, timeout=30) as r:
         return json.load(r)["parse"]["wikitext"]
 

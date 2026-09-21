@@ -1,4 +1,4 @@
-# UserKnowledgeMap
+# Bonsai
 
 A personal knowledge profile for AI agents. One JSON file, owned by the user, that any agent reads at
 session start to explain things using only concepts the user already has, and updates from what
@@ -19,32 +19,32 @@ viz/       static tree view
 ## Setup
 
 ```bash
-python3 -m venv ~/.venvs/ukm && ~/.venvs/ukm/bin/pip install -r requirements.txt
+python3 -m venv ~/.venvs/bonsai && ~/.venvs/bonsai/bin/pip install -r requirements.txt
 python3 scripts/build_skeleton.py          # writes data/skeleton.json
-scripts/reset_demo.sh                       # copies the persona seed to $KNOWLEDGE_HOME
-~/.venvs/ukm/bin/python scripts/install_hooks.py   # registers hooks in ~/.claude/settings.json
+scripts/reset_demo.sh                       # copies the persona seed to $BONSAI_HOME
+~/.venvs/bonsai/bin/python scripts/install_hooks.py   # registers hooks in ~/.claude/settings.json
 ```
 
-`KNOWLEDGE_HOME` defaults to `~/.knowledge`.
+`BONSAI_HOME` defaults to `~/.bonsai`.
 
 ### Install as a Claude Code plugin instead of editing settings.json
 
 ```bash
-claude plugin marketplace add https://github.com/omarcontreras96/UserKnowledgeMap
-claude plugin install user-knowledge-map@user-knowledge-map --scope user
+claude plugin marketplace add https://github.com/omarcontreras96/bonsai
+claude plugin install bonsai@bonsai --scope user
 ```
 
 Use one or the other: `install_hooks.py` (settings.json) or the plugin, not both, or every hook fires twice.
-`UKM_DISABLED=1` silences the hooks for a session.
+`BONSAI_DISABLED=1` silences the hooks for a session.
 
 ### Use the same profile from another agent
 
 ```bash
-~/.venvs/ukm/bin/python scripts/export_context.py agents   # AGENTS.md for Codex CLI / OpenClaw
-~/.venvs/ukm/bin/python scripts/export_context.py gemini   # GEMINI.md for Gemini CLI
-~/.venvs/ukm/bin/python scripts/chat_openai.py             # a chat REPL on OpenAI with the same hooks
+~/.venvs/bonsai/bin/python scripts/export_context.py agents   # AGENTS.md for Codex CLI / OpenClaw
+~/.venvs/bonsai/bin/python scripts/export_context.py gemini   # GEMINI.md for Gemini CLI
+~/.venvs/bonsai/bin/python scripts/chat_openai.py             # a chat REPL on OpenAI with the same hooks
 ``` The hooks that call a model read `OPENAI_API_KEY` from
-`$KNOWLEDGE_HOME/.env` (one `KEY=value` line, chmod 600). The SessionStart hook needs no key.
+`$BONSAI_HOME/.env` (one `KEY=value` line, chmod 600). The SessionStart hook needs no key.
 
 ## Status
 

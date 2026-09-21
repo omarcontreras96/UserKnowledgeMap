@@ -1,7 +1,7 @@
 # Spinning top, control (no profile injected)
 
 Prompt: Why does a spinning top stay upright instead of falling over?
-Model: Claude Code default, headless, SessionStart hook pointed at an empty KNOWLEDGE_HOME. 2026-09-20.
+Model: Claude Code default, headless, SessionStart hook pointed at an empty BONSAI_HOME. 2026-09-20.
 
 A spinning top stays up because of angular momentum and the way torque acts on it. It does not defeat gravity. Gravity still pulls on it, but the pull produces a sideways motion instead of a fall.
 
