@@ -25,7 +25,25 @@ scripts/reset_demo.sh                       # copies the persona seed to $KNOWLE
 ~/.venvs/ukm/bin/python scripts/install_hooks.py   # registers hooks in ~/.claude/settings.json
 ```
 
-`KNOWLEDGE_HOME` defaults to `~/.knowledge`. The hooks that call a model read `OPENAI_API_KEY` from
+`KNOWLEDGE_HOME` defaults to `~/.knowledge`.
+
+### Install as a Claude Code plugin instead of editing settings.json
+
+```bash
+claude marketplace add user-knowledge-map /path/to/UserKnowledgeMap     # or the GitHub URL
+claude plugin install user-knowledge-map@user-knowledge-map --scope user
+```
+
+Use one or the other: `install_hooks.py` (settings.json) or the plugin, not both, or every hook fires twice.
+`UKM_DISABLED=1` silences the hooks for a session.
+
+### Use the same profile from another agent
+
+```bash
+~/.venvs/ukm/bin/python scripts/export_context.py agents   # AGENTS.md for Codex CLI / OpenClaw
+~/.venvs/ukm/bin/python scripts/export_context.py gemini   # GEMINI.md for Gemini CLI
+~/.venvs/ukm/bin/python scripts/chat_openai.py             # a chat REPL on OpenAI with the same hooks
+``` The hooks that call a model read `OPENAI_API_KEY` from
 `$KNOWLEDGE_HOME/.env` (one `KEY=value` line, chmod 600). The SessionStart hook needs no key.
 
 ## Status
@@ -36,4 +54,7 @@ scripts/reset_demo.sh                       # copies the persona seed to $KNOWLE
 - [x] Stop hook: concepts the agent explained -> exposed (detached worker, one fast-model call)
 - [x] SessionEnd consolidation: parent exposed after >= 3 explained leaves, parent inferred from a used leaf, AL-CPL prerequisites inferred
 - [x] Eval: 10 questions x {none, bio, tree}; Claude answers, gpt-5 judges. Unexplained dependencies per answer 4.3 -> 1.4 -> 0.9; follow-up questions 4.1 -> 2.7 -> 2.1. See `eval/results.md`.
-- [ ] Tree visualization, demo script, plugin packaging
+- [x] Live tree visualization (`python3 viz/serve.py`, http://localhost:8766)
+- [x] Demo script: `DEMO.md`
+- [x] Plugin packaging: `.claude-plugin/`, `hooks/hooks.json` (install below)
+- [x] Portability: `scripts/export_context.py` writes the block into AGENTS.md (Codex, OpenClaw), GEMINI.md, CLAUDE.md or Cursor rules; `scripts/chat_openai.py` is a second harness on OpenAI that reads and updates the same file

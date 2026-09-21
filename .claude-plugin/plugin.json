@@ -1,0 +1,11 @@
+{
+  "name": "user-knowledge-map",
+  "displayName": "User Knowledge Map",
+  "version": "0.1.0",
+  "description": "A user-owned knowledge profile (~/.knowledge/profile.json) that Claude reads at session start to explain things using only concepts you already know, and updates from the conversation.",
+  "author": { "name": "Omar Contreras", "url": "https://github.com/omarcontreras96" },
+  "repository": "https://github.com/omarcontreras96/UserKnowledgeMap",
+  "license": "MIT",
+  "keywords": ["memory", "learning", "profile", "hooks", "explanations"],
+  "hooks": "./hooks/hooks.json"
+}

@@ -190,6 +190,9 @@ sunburst, only disciplines expanded by default, colored by state:
 used = green, exposed = blue, asked = orange, inferred = light blue, unknown = red, no data = grey.
 Right panel tails `log.jsonl`. Poll both files every 2 s so the recolor happens live during the demo.
 **Done when:** the "asked → used" transition is visible without reloading.
+**Done 2026-09-20:** `viz/serve.py` + `viz/index.html`. Every discipline drawn (grey when untouched,
+compressed spacing), full path of every profile node, pan/zoom/fit, pulse on change, log panel.
+Verified live: "what's torque?" turned orange within 2 s, "I already know vectors" turned green.
 
 ### 8. Eval (60 min) — run this as soon as step 3 works, in parallel with 4–7
 `eval/questions.json`: 10 questions the persona would ask, spread across the map (2 physics,
@@ -239,10 +242,19 @@ cannot do: learn from the conversation, persist across sessions and agents, and 
 ### 10. Plugin packaging (30 min, only if everything above is green)
 `.claude-plugin/plugin.json`, `hooks/hooks.json` with the four hooks, `.claude-plugin/marketplace.json`,
 install at user scope. Move the settings.json snippet out.
+**Done 2026-09-20:** `.claude-plugin/plugin.json`, `.claude-plugin/marketplace.json`, `hooks/hooks.json`
+using `${CLAUDE_PLUGIN_ROOT}/scripts/run_hook.sh` (picks the venv python if present). Validated with
+`claude plugin validate`. settings.json install kept as the demo path; the two must not coexist.
 
 ### 11. Stretch: portability
 Same `profile.json` read by a second harness (OpenClaw `before_prompt_build` / `agent_end`), proving
 the file, not the harness, is the memory.
+**Done 2026-09-20, two ways:** (a) `scripts/export_context.py` writes the block into AGENTS.md, which
+OpenClaw and Codex CLI inject into every session (also GEMINI.md, CLAUDE.md, Cursor rules), idempotent
+via markers; (b) `scripts/chat_openai.py`, a REPL on gpt-5 that runs the same on_prompt / on_stop /
+consolidation code against the same file. Verified: spinning top on gpt-5-mini -> angular momentum,
+torque, precession exposed; "what is precession again?" -> asked; session end -> classical mechanics
+exposed. The map shows it live exactly as for Claude Code.
 
 ## How this answers the hackathon theme (put on the pitch slide)
 - **Memory in tokens:** one JSON file, human-readable, editable in any editor, readable by any
