@@ -6,6 +6,5 @@
   "author": { "name": "Omar Contreras", "url": "https://github.com/omarcontreras96" },
   "repository": "https://github.com/omarcontreras96/UserKnowledgeMap",
   "license": "MIT",
-  "keywords": ["memory", "learning", "profile", "hooks", "explanations"],
-  "hooks": "./hooks/hooks.json"
+  "keywords": ["memory", "learning", "profile", "hooks", "explanations"]
 }

@@ -30,7 +30,7 @@ scripts/reset_demo.sh                       # copies the persona seed to $KNOWLE
 ### Install as a Claude Code plugin instead of editing settings.json
 
 ```bash
-claude marketplace add user-knowledge-map /path/to/UserKnowledgeMap     # or the GitHub URL
+claude plugin marketplace add https://github.com/omarcontreras96/UserKnowledgeMap
 claude plugin install user-knowledge-map@user-knowledge-map --scope user
 ```
 
