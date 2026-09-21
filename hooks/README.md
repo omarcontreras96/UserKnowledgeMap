@@ -1,7 +1,15 @@
 # Hooks
 
-`scripts/install_hooks.py` writes these into `~/.claude/settings.json` (user scope, all projects).
-`scripts/install_hooks.py --remove` takes them out again. A backup of settings.json is made each time.
+Two ways to register them, never both at once (they would fire twice):
+
+- **Plugin (recommended):** `hooks/hooks.json` is loaded automatically when the plugin is installed
+  (`claude plugin marketplace add https://github.com/omarcontreras96/UserKnowledgeMap`, then
+  `claude plugin install user-knowledge-map@user-knowledge-map --scope user`). Turn off with
+  `claude plugin disable user-knowledge-map@user-knowledge-map`.
+- **settings.json:** `scripts/install_hooks.py` writes the same four hooks into `~/.claude/settings.json`
+  (user scope); `--remove` takes them out. Useful for developing the hooks without reinstalling.
+
+`UKM_DISABLED=1` silences the hooks for one session either way.
 
 | Event | Script | What it does | stdout enters context? |
 |---|---|---|---|

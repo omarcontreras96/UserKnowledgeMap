@@ -7,10 +7,14 @@ Every beat below has already worked in headless runs on 2026-09-20; the sample a
 
 ```bash
 cd UserKnowledgeMap
-~/.venvs/ukm/bin/python scripts/install_hooks.py       # hooks on (all four)
+claude plugin list | grep -A3 user-knowledge-map        # must say "enabled" (the plugin is the hook install)
 scripts/reset_demo.sh                                    # persona seed, empty log
 python3 viz/serve.py &                                   # http://localhost:8766, click "fit"
 ```
+
+If the plugin is not installed: `claude plugin marketplace add https://github.com/omarcontreras96/UserKnowledgeMap`
+then `claude plugin install user-knowledge-map@user-knowledge-map --scope user`. Do NOT also run
+`scripts/install_hooks.py`; that registers the same hooks a second time and everything fires twice.
 
 Screen layout: browser with the map on the left half, a terminal with `claude` on the right half.
 Start `claude` in any folder AFTER the reset so the SessionStart hook reads the clean seed.
@@ -97,5 +101,6 @@ one file, yours. Any agent that can read a file can use it."
 ## After the demo
 
 ```bash
-~/.venvs/ukm/bin/python scripts/install_hooks.py --remove   # hooks off, Claude behaves normally
+claude plugin disable user-knowledge-map@user-knowledge-map   # hooks off, Claude behaves normally
+claude plugin enable user-knowledge-map@user-knowledge-map    # back on before the next demo
 ```
