@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Knowledge Map</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<style>
+  :root{
+    --bg:#0f1020; --panel:#171a2e; --line:#2a2e4a; --text:#e8e9f2; --muted:#9a9fbf;
+    --used:#4ade80; --exposed:#60a5fa; --asked:#fb923c; --inferred:#93c5fd; --unknown:#f87171; --nodata:#3b3f5c;
+    --root:#c084fc;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font:14px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;height:100vh;display:grid;grid-template-rows:auto 1fr;}
+  header{display:flex;align-items:center;gap:18px;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--panel)}
+  header h1{font-size:16px;margin:0;font-weight:600;letter-spacing:.2px}
+  header .bio{color:var(--muted);font-size:12px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .legend{display:flex;gap:10px;font-size:12px;color:var(--muted);flex-wrap:wrap}
+  .legend span{display:inline-flex;align-items:center;gap:5px}
+  .dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+  .counts b{color:var(--text)}
+  button{background:transparent;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:4px 9px;font-size:12px;cursor:pointer}
+  button:hover{color:var(--text);border-color:var(--muted)}
+  main{display:grid;grid-template-columns:1fr 360px;min-height:0}
+  #tree{overflow:auto;position:relative}
+  svg{display:block}
+  aside{border-left:1px solid var(--line);background:var(--panel);display:flex;flex-direction:column;min-height:0}
+  aside h2{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0;padding:10px 14px;border-bottom:1px solid var(--line)}
+  #log{overflow:auto;padding:6px 0;flex:1}
+  .entry{padding:7px 14px;border-bottom:1px solid var(--line);font-size:12.5px}
+  .entry .t{color:var(--muted);font-size:11px}
+  .entry .n{font-weight:600}
+  .entry .ev{color:var(--muted);margin-top:2px;white-space:pre-wrap}
+  .entry.fresh{background:rgba(251,146,60,.10)}
+  .pill{display:inline-block;padding:0 6px;border-radius:9px;font-size:11px;color:#0f1020;font-weight:600;margin-left:4px}
+  .node text{font-size:12px;fill:var(--text);paint-order:stroke;stroke:var(--bg);stroke-width:3px}
+  .node.dim text{fill:var(--muted);font-size:11px}
+  .link{fill:none;stroke:var(--line);stroke-width:1.2px}
+  .node circle{stroke:var(--bg);stroke-width:1.5px}
+  .node.changed circle{stroke:#fff;stroke-width:2.5px}
+  @keyframes pulse{0%{r:6}50%{r:11}100%{r:6}}
+  .node.changed.leaf circle{animation:pulse 1.2s ease-in-out 3}
+  @media (max-width:900px){main{grid-template-columns:1fr}aside{display:none}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Knowledge Map</h1>
+  <div class="bio" id="bio"></div>
+  <div class="legend">
+    <span><i class="dot" style="background:var(--used)"></i>used</span>
+    <span><i class="dot" style="background:var(--exposed)"></i>exposed</span>
+    <span><i class="dot" style="background:var(--asked)"></i>asked</span>
+    <span><i class="dot" style="background:var(--inferred)"></i>inferred</span>
+    <span><i class="dot" style="background:var(--unknown)"></i>unknown</span>
+    <span><i class="dot" style="background:var(--nodata)"></i>no data</span>
+  </div>
+  <div class="counts" id="counts"></div>
+  <button id="fit" title="Fit the whole tree in view">fit</button>
+  <button id="reset" title="Re-seed the demo persona and clear the log">reset demo</button>
+</header>
+<main>
+  <div id="tree"></div>
+  <aside>
+    <h2>Change log <span id="home" style="text-transform:none;letter-spacing:0;float:right"></span></h2>
+    <div id="log"></div>
+  </aside>
+</main>
+<script>
+const COLORS = {used:'var(--used)', exposed:'var(--exposed)', asked:'var(--asked)', inferred:'var(--inferred)', unknown:'var(--unknown)'};
+const cssColor = k => getComputedStyle(document.documentElement).getPropertyValue(k.replace('var(','').replace(')','')).trim();
+let skeleton = null, lastSig = '', changedAt = {};   // node id -> timestamp of last observed change
+let zoom = null, treeExtent = {width: 1000, height: 800};
+
+function fit(){
+  const box = document.getElementById('tree').getBoundingClientRect();
+  const k = Math.min(box.width / treeExtent.width, box.height / treeExtent.height, 1.5);
+  d3.select('#tree svg').transition().duration(400)
+    .call(zoom.transform, d3.zoomIdentity.translate(140 * k + 10, 20 * k + 10).scale(k));
+}
+
+async function loadSkeleton(){ skeleton = await (await fetch('/api/skeleton')).json(); }
+
+function nameOf(id, profile){
+  if (skeleton.nodes[id]) return skeleton.nodes[id].name;
+  const n = profile.nodes[id]; if (n && n.name) return n.name;
+  return id.split('/').pop().replace(/-/g,' ');
+}
+function parentOf(id, profile){
+  if (skeleton.nodes[id]) return skeleton.nodes[id].parent;
+  const n = profile.nodes[id]; if (n && n.parent !== undefined) return n.parent;
+  return id.includes('/') ? id.slice(0, id.lastIndexOf('/')) : null;
+}
+
+// Build a hierarchy containing every discipline (grey if untouched) plus the full path of every
+// profile node. Only touched subtrees are expanded, so ~2,000 skeleton nodes stay out of the way.
+function buildTree(profile){
+  const nodes = new Map();   // id -> {id, name, state, children:[]}
+  const get = (id) => {
+    if (!nodes.has(id)) nodes.set(id, {id, name: nameOf(id, profile), state: (profile.nodes[id]||{}).state || null, children: [], level: skeleton.nodes[id] ? skeleton.nodes[id].level : 'leaf'});
+    return nodes.get(id);
+  };
+  const root = {id:'__root', name: profile.owner || 'me', state: null, children: [], level:'root'};
+  const attach = (id) => {
+    const n = get(id); const p = parentOf(id, profile);
+    if (p) { const pn = get(p); if (!pn.children.includes(n)) pn.children.push(n); attach(p); }
+    else if (!root.children.includes(n)) root.children.push(n);
+  };
+  for (const id in skeleton.nodes) if (skeleton.nodes[id].level === 'discipline') attach(id);
+  for (const id in profile.nodes) attach(id);
+  // sort: touched disciplines first, then alphabetical
+  const touched = (n) => n.state || n.children.some(touched);
+  const sortRec = (n) => { n.children.sort((a,b) => (touched(b)-touched(a)) || a.name.localeCompare(b.name)); n.children.forEach(sortRec); };
+  sortRec(root);
+  return root;
+}
+
+function render(profile, log){
+  const rootData = buildTree(profile);
+  const root = d3.hierarchy(rootData);
+  const dim = n => !n.data.state && !n.children;                 // untouched discipline
+  const rows = root.leaves().reduce((s, n) => s + (dim(n) ? 0.45 : 1), 0);
+  const rowH = 24, width = Math.max(900, document.getElementById('tree').clientWidth - 20);
+  const height = Math.max(500, rows * rowH + 40);
+  const layout = d3.tree().size([height - 40, width - 320])
+    .separation((a, b) => (dim(a) && dim(b)) ? 0.45 : (a.parent === b.parent ? 1 : 1.25));
+  layout(root);
+
+  let svg = d3.select('#tree svg');
+  if (svg.empty()) {
+    svg = d3.select('#tree').append('svg');
+    const view = svg.append('g').attr('class','view').attr('transform','translate(140,20)');
+    view.append('g').attr('class','links');
+    view.append('g').attr('class','nodes');
+    zoom = d3.zoom().scaleExtent([0.2, 3]).on('zoom', ev => view.attr('transform', ev.transform));
+    svg.call(zoom).call(zoom.transform, d3.zoomIdentity.translate(140, 20));
+  }
+  svg.attr('width', '100%').attr('height', '100%');
+  treeExtent = {width: width + 200, height};
+
+  const t = d3.transition().duration(500);
+  const links = svg.select('g.links').selectAll('path.link').data(root.links(), d => d.target.data.id);
+  links.exit().remove();
+  links.enter().append('path').attr('class','link').merge(links).transition(t)
+    .attr('d', d3.linkHorizontal().x(d => d.y).y(d => d.x));
+
+  const now = Date.now();
+  const nodes = svg.select('g.nodes').selectAll('g.node').data(root.descendants(), d => d.data.id);
+  nodes.exit().remove();
+  const enter = nodes.enter().append('g').attr('class','node')
+    .attr('transform', d => `translate(${d.y},${d.x})`);
+  enter.append('circle').attr('r', 0);
+  enter.append('text').attr('dy', '0.32em');
+  const all = enter.merge(nodes);
+  all.attr('class', d => {
+      const cls = ['node']; if (!d.data.state && d.data.level !== 'root') cls.push('dim');
+      if (changedAt[d.data.id] && now - changedAt[d.data.id] < 12000) cls.push('changed');
+      if (!d.children) cls.push('leaf'); return cls.join(' ');
+    })
+    .transition(t).attr('transform', d => `translate(${d.y},${d.x})`);
+  all.select('circle').transition(t)
+    .attr('r', d => d.data.level === 'root' ? 9 : d.data.state ? 6.5 : 4)
+    .attr('fill', d => d.data.level === 'root' ? cssColor('var(--root)') : d.data.state ? cssColor(COLORS[d.data.state]) : cssColor('var(--nodata)'));
+  all.select('text')
+    .attr('x', d => d.children ? -11 : 11)
+    .attr('text-anchor', d => d.children ? 'end' : 'start')
+    .text(d => d.data.name + (d.data.state && d.data.level !== 'leaf' && d.children ? '' : ''));
+  all.select('title').remove();
+  all.append('title').text(d => {
+    const n = profile.nodes[d.data.id]; if (!n) return d.data.id;
+    return `${d.data.id}\nstate: ${n.state}\nevidence: ${n.evidence}\nupdated: ${n.updated_at}`;
+  });
+
+  // counts
+  const c = {}; for (const id in profile.nodes) { const s = profile.nodes[id].state; c[s] = (c[s]||0)+1; }
+  document.getElementById('counts').innerHTML = ['used','exposed','asked','inferred','unknown']
+    .map(s => `<span style="margin-right:10px"><i class="dot" style="background:${COLORS[s]}"></i> <b>${c[s]||0}</b></span>`).join('');
+  document.getElementById('bio').textContent = profile.bio || '';
+
+  // log (newest first)
+  const el = document.getElementById('log');
+  el.innerHTML = log.slice().reverse().map(e => {
+    const age = (now - Date.parse(e.ts)) / 1000;
+    const pill = `<span class="pill" style="background:${COLORS[e.to]||'#888'}">${e.to}</span>`;
+    return `<div class="entry ${age < 15 ? 'fresh' : ''}">
+      <div><span class="n">${e.name}</span> <span class="t">${e.from ? e.from + ' →' : 'new →'}</span>${pill}</div>
+      <div class="ev">${(e.evidence||'').replace(/</g,'&lt;')}</div>
+      <div class="t">${new Date(e.ts).toLocaleTimeString()} · ${e.node}</div></div>`;
+  }).join('');
+}
+
+async function poll(){
+  try {
+    const st = await (await fetch('/api/state?n=80')).json();
+    document.getElementById('home').textContent = st.home.replace(/^\/Users\/[^/]+/, '~');
+    const sig = JSON.stringify(st.profile.nodes) + st.log.length;
+    if (sig !== lastSig) {
+      // mark what changed since last poll
+      const prev = lastSig ? JSON.parse(lastSig.slice(0, lastSig.lastIndexOf('}') + 1)) : {};
+      for (const id in st.profile.nodes) if (JSON.stringify(prev[id]) !== JSON.stringify(st.profile.nodes[id]) && lastSig) changedAt[id] = Date.now();
+      const first = !lastSig;
+      lastSig = sig;
+      render(st.profile, st.log);
+      if (first) setTimeout(fit, 550);
+    } else if (Object.values(changedAt).some(ts => Date.now() - ts < 13000)) {
+      render(st.profile, st.log);   // let pulses expire
+    }
+  } catch (e) { console.warn(e); }
+}
+
+document.getElementById('fit').onclick = fit;
+document.getElementById('reset').onclick = async () => {
+  if (!confirm('Re-seed the demo persona and clear the log?')) return;
+  await fetch('/api/reset', {method:'POST'}); changedAt = {}; lastSig=''; poll();
+};
+
+loadSkeleton().then(() => { poll(); setInterval(poll, 2000); });
+</script>
+</body>
+</html>
